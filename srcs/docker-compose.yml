@@ -79,7 +79,7 @@ volumes:
       # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
       o: 'bind'
       # Emplacement sur l'hôte pour stocker les données WordPress
-      device: "/home/data/wordpress"
+      device: "/home/lcadinot/data/wordpress"
   mariadb:
     # Utiliser le driver local pour le volume
     driver: local
@@ -89,7 +89,7 @@ volumes:
       # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
       o: 'bind'
       # Emplacement sur l'hôte pour stocker les données MariaDB
-      device: "/home/data/mariadb"
+      device: "/home/lcadinot/data/mariadb"
 
 # Définition du réseau Docker
 networks:

@@ -5,7 +5,7 @@ DOCKER_COMPOSE = docker-compose
 SRC_DIR = srcs
 COMPOSE_FILE = $(SRC_DIR)/docker-compose.yml
 DC = $(DOCKER_COMPOSE) -f $(COMPOSE_FILE)
-DATA_DIR = /home/data
+DATA_DIR = $(HOME)/data
 
 # Cibles
 .PHONY: all build up down clean logs ps volumes inspect prune help eval net-ls info mysql
@@ -407,7 +407,7 @@ eval:
 	echo ""; \
 	echo "\033[1;36mdocker volume ls && docker volume inspect wordpress\033[0m"; \
 	volume_name="srcs_wordpress"; \
-	volume_path="/home/data/wordpress"; \
+	volume_path="/home/lcadinot/data/wordpress"; \
 	volume_exists=$$(docker volume ls | grep -w $$volume_name); \
 	volume_inspect=$$(docker volume inspect $$volume_name | grep '"device":' | sed 's/^[ \t]*//'); \
 	if [ -n "$$volume_exists" ]; then \
@@ -457,7 +457,7 @@ eval:
 	echo ""; \
 	echo "\033[1;36mdocker volume ls && docker volume inspect mariadb\033[0m"; \
 	volume_name="srcs_mariadb"; \
-	volume_path="/home/data/mariadb"; \
+	volume_path="/home/lcadinot/data/mariadb"; \
 	volume_exists=$$(docker volume ls | grep -w $$volume_name); \
 	volume_inspect=$$(docker volume inspect $$volume_name | grep '"device":' | sed 's/^[ \t]*//'); \
 	if [ -n "$$volume_exists" ]; then \
