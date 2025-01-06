@@ -5,7 +5,7 @@ FROM debian:bullseye
 RUN apt update -y 
 
 # Installer NGINX
-RUN apt install -y nginx
+RUN apt update -y && apt install -y nginx
 
 # Installer l'éditeur de texte Vim
 RUN apt install -y vim
