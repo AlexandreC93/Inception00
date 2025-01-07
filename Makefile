@@ -30,7 +30,7 @@ down:
 # Nettoyer les volumes Docker et les données
 clean:
 	$(DC) down -v --remove-orphans
-	rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
+	sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
 
 
 # Afficher les journaux des conteneurs Docker
