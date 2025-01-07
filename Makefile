@@ -77,13 +77,13 @@ info:
 	fi
 	@echo "\n== Inspecting Volume: mariadb =="
 	@if docker volume inspect srcs_mariadb >/dev/null 2>&1; then \
-		docker volume inspect mariadb; \
+		docker volume inspect srcs_mariadb; \
 	else \
 		echo "Le volume 'mariadb' n'existe pas."; \
 	fi
 	@echo "\n== Inspecting Volume: wordpress =="
 	@if docker volume inspect srcs_wordpress >/dev/null 2>&1; then \
-		docker volume inspect wordpress; \
+		docker volume inspect srcs_wordpress; \
 	else \
 		echo "Le volume 'wordpress' n'existe pas."; \
 	fi
