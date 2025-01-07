@@ -20,7 +20,7 @@ mysql -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' I
 mysql -e "FLUSH PRIVILEGES;"
 
 # Arrêter proprement MariaDB
-mysqladmin -u root -p${SQL_ROOT_PASSWORD} shutdown
+mysqladmin -u root -p ${SQL_ROOT_PASSWORD} shutdown
 
 # Lancer MariaDB en mode sécurisé
 exec mysqld_safe
