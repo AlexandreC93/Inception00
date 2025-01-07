@@ -58,7 +58,7 @@ net-ls:
 
 # Ouvrir une session MySQL dans le conteneur MariaDB
 mysql:
-	docker exec -it mariadb mysql -u root -p
+	docker exec -it srcs_mariadb mysql -u root -p
 
 info:
 	@echo "== Docker Network List =="
