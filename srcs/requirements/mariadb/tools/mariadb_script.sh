@@ -14,11 +14,15 @@ echo "MariaDB is ready."
 
 # Vérification de la connexion initiale avec root sans mot de passe
 echo "Testing initial root connection..."
-if ! mysql -uroot -e "SELECT 1;" > /dev/null 2>&1; then
+if mysql -uroot -e "SELECT 1;" > /dev/null 2>&1; then
+  echo "Root connection successful (no password)."
+elif mysql -uroot -p${SQL_ROOT_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; then
+  echo "Root connection successful (with password)."
+else
   echo "Error: Unable to connect to MariaDB with root user."
   exit 1
 fi
-echo "Root connection successful."
+
 
 # Créer la base de données si elle n'existe pas
 echo "Creating database '${SQL_DATABASE}'..."
