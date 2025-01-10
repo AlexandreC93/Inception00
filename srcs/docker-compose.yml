@@ -39,7 +39,7 @@ services:
       - .env
     # Mapper le port 443 du conteneur sur le port 443 de la machine locale
     ports:
-      - "443/tcp"
+      - "443:443"
     # Monter le volume pour stocker les fichiers WordPress
     volumes:
       - wordpress:/var/www/html/wordpress
