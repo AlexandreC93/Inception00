@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     # Exposer le port 3306 pour MariaDB
     expose: 
-      - "3306"
+      - "3306:3306"
 
   nginx:
     # Nom du conteneur NGINX
