@@ -5,8 +5,8 @@ service mariadb start
 
 # Attendre que MariaDB soit prêt
 until mysqladmin ping > /dev/null 2>&1; do
-echo "Waiting for MariaDB to be ready..."
-sleep 5
+    echo "Waiting for MariaDB to be ready..."
+    sleep 2
 done
 
 echo "MariaDB is ready."
