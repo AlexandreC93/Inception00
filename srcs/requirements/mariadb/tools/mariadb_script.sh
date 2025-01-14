@@ -17,7 +17,7 @@ mysql -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' I
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 
 # Reactualisation des privilèges
-mysql -e "FLUSH PRIVILEGES;"
+mysql -e "FLUSH PRIVILEGES IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 
 # Arrêter proprement MariaDB
 mysqladmin -u root -p${SQL_ROOT_PASSWORD} shutdown
