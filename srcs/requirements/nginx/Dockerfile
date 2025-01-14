@@ -22,7 +22,7 @@ RUN apt install -y openssl
 # Générer un certificat SSL auto-signé pour NGINX
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=PARIS/O=42/OU=42/CN=lcadinot.42.fr/UID=lcadinot"
 
-#RUN cp /etc/nginx/ssl/inception.crt /usr/local/share/ca-certificates/inception.crt
+RUN cp /etc/nginx/ssl/inception.crt /usr/local/share/ca-certificates/inception.crt
 
 RUN update-ca-certificates
 
