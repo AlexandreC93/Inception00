@@ -26,6 +26,12 @@ mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWOR
 echo "Flushing privileges..."
 mysql -uroot -p${SQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 
+if [ -z "${SQL_ROOT_PASSWORD}" ]; then
+  echo "Error: SQL_ROOT_PASSWORD is not set!"
+  exit 1
+fi
+
+mysqladmin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 # Arrêter proprement MariaDB
 echo "Stopping MariaDB service..."
 mysqladmin -uroot -p${SQL_ROOT_PASSWORD} shutdown
