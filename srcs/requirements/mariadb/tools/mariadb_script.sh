@@ -1,41 +1,29 @@
 #!/bin/bash
+# Démarrer le service MariaDB
+echo "test"
 
-# Démarrer MariaDB
-echo "Starting MariaDB service..."
-service mariadb start
+service mariadb start;
 
-# Attendre que MariaDB soit prêt
-echo "Waiting for MariaDB to be ready..."
-until mysqladmin ping -h localhost --silent; do
-  echo "MariaDB is initializing..."
-  sleep 2
-done
-echo "MariaDB is ready!"
+# Créer la base de données si elle n'existe pas
+mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 
-# Définir le mot de passe root
-echo "Setting root password..."
-mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
-# Créer la base de données et configurer l'utilisateur
-echo "Creating database and user..."
-mysql -uroot -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
-mysql -uroot -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';"
-mysql -uroot -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%';"
+# Créer l'utilisateur s'il n'existe pas
+mysql -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
 
+# Accorder tous les privilèges à l'utilisateur sur la base de données
+mysql -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';"
 
-# Rafraîchir les privilèges
-echo "Flushing privileges..."
-mysql -uroot -p${SQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
+# Changer le mot de passe du root
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 
-if [ -z "${SQL_ROOT_PASSWORD}" ]; then
-  echo "Error: SQL_ROOT_PASSWORD is not set!"
-  exit 1
-fi
+# Reactualisation des privilèges
+mysql -e "FLUSH PRIVILEGES;"
 
-mysqladmin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 # Arrêter proprement MariaDB
-echo "Stopping MariaDB service..."
-mysqladmin -uroot -p${SQL_ROOT_PASSWORD} shutdown
+mysqladmin -u root -p${SQL_ROOT_PASSWORD} shutdown
 
 # Lancer MariaDB en mode sécurisé
-echo "Starting MariaDB in safe mode..."
 exec mysqld_safe
+
+# Message de succès
+echo "MariaDB database and user were created successfully!"
