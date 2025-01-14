@@ -12,15 +12,15 @@ until mysqladmin ping -h localhost --silent; do
 done
 echo "MariaDB is ready!"
 
+# Définir le mot de passe root
+echo "Setting root password..."
+mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 # Créer la base de données et configurer l'utilisateur
 echo "Creating database and user..."
 mysql -uroot -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 mysql -uroot -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%';"
 
-# Définir le mot de passe root
-echo "Setting root password..."
-mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 
 # Rafraîchir les privilèges
 echo "Flushing privileges..."
