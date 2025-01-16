@@ -1,70 +1,51 @@
 services:
   mariadb:
-    # Nom du conteneur MariaDB
     container_name: mariadb 
-    # Réseau auquel le conteneur appartient
     networks:
       - inception
-    # Chemin du Dockerfile pour construire l'image
     build: 
       context: ./requirements/mariadb
-    # Fichier contenant les variables d'environnement
     env_file:
       - .env
-    # Volumes pour persister les données de la base de données
     volumes: 
       - mariadb:/var/lib/mysql
     # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-    # Exposer le port 3306 pour MariaDB
     expose: 
       - "3306/tcp"
 
   nginx:
-    # Nom du conteneur NGINX
     container_name: nginx
-    # Réseau auquel le conteneur appartient
     networks:
       - inception
-    # Indiquer que NGINX dépend de WordPress (ne démarre pas tant que WordPress n'est pas opérationnel)
     depends_on: 
       - wordpress
     # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-    # Chemin du Dockerfile pour construire l'image
     build:
       context: requirements/nginx
-    # Fichier contenant les variables d'environnement
     env_file:
       - .env
     # Mapper le port 443 du conteneur sur le port 443 de la machine locale
     ports:
       - "443:443"
-    # Monter le volume pour stocker les fichiers WordPress
     volumes:
       - wordpress:/var/www/html/wordpress
 
   wordpress:
-    # Nom du conteneur WordPress
     container_name: wordpress
-    # Réseau auquel le conteneur appartient
     networks:
       - inception
-    # Indiquer que WordPress dépend de MariaDB (ne démarre pas tant que MariaDB n'est pas opérationnel)
     depends_on: 
       - mariadb
     # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
-    # Chemin du Dockerfile pour construire l'image
     build:
       context: ./requirements/wordpress
-    # Fichier contenant les variables d'environnement
     env_file:
       - .env
-    # Monter le volume pour stocker les fichiers WordPress
     volumes:
       - wordpress:/var/www/html/wordpress
-    # Exposer le port 9000 pour PHP-FPM
     expose: 
       - "9000"
 
@@ -78,7 +59,6 @@ volumes:
       type: 'none'
       # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
       o: 'bind'
-      # Emplacement sur l'hôte pour stocker les données WordPress
       device: "/home/lcadinot/data/wordpress"
   mariadb:
     # Utiliser le driver local pour le volume
@@ -88,13 +68,11 @@ volumes:
       type: 'none'
       # Demande à Docker de travailler directement dans le dossier de l'hôte spécifié.
       o: 'bind'
-      # Emplacement sur l'hôte pour stocker les données MariaDB
       device: "/home/lcadinot/data/mariadb"
 
 # Définition du réseau Docker
 networks:
   inception:
-    # Nom du réseau Docker
     name: inception
     # Utiliser le driver bridge pour permettre la communication entre les conteneurs
     driver: bridge

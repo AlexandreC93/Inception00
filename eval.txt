@@ -1,3 +1,22 @@
+help:
+	@echo "Utilisation du Makefile :"
+	@echo "  make                  : Construire et démarrer les conteneurs Docker"
+	@echo "  make build            : Construire les images Docker"
+	@echo "  make up               : Démarrer les conteneurs Docker"
+	@echo "  make down             : Arrêter et supprimer les conteneurs Docker et le réseau"
+	@echo "  make clean            : Nettoyer les volumes Docker et supprimer les données"
+	@echo "  make logs             : Afficher les journaux des conteneurs Docker"
+	@echo "  make ps               : Afficher l'état des conteneurs Docker du projet"
+	@echo "  make volumes          : Lister les volumes Docker"
+	@echo "  make inspect          : Inspecter un volume Docker spécifique (ex: make inspect-volume NAME=volume_name)"
+	@echo "  make prune            : Nettoyer TOUT Docker (conteneurs, images, volumes, réseaux)"
+	@echo "  make help             : Afficher cette aide"
+	@echo "  make eval             : Afficher les testes"
+	@echo "  make net-ls           : Lister les réseaux Docker"
+	@echo "  make info             : Afficher les informations Docker"
+	@echo "  make mysql            : Ouvrir une session MySQL dans le conteneur MariaDB"
+
+
 # Testeur
 eval:
 	@echo "\033[1;34m/*   -'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-',-'   */"; \

@@ -1,25 +1,17 @@
-# Indiquer à Docker l'OS de base pour la machine virtuelle (Debian 11)
 FROM debian:bullseye
 
-# Mettre à jour la liste des paquets
 RUN apt update -y 
 
-# Installer NGINX
 RUN apt update -y && apt install -y nginx
 
-# Installer l'éditeur de texte Vim
 RUN apt install -y vim
 
-# Installer l'outil de ligne de commande Curl
 RUN apt install -y curl
 
-# Créer le répertoire pour les certificats SSL de NGINX
 RUN mkdir -p /etc/nginx/ssl
 
-# Installer OpenSSL pour générer les certificats SSL
 RUN apt install -y openssl
 
-# Générer un certificat SSL auto-signé pour NGINX
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=PARIS/O=42/OU=42/CN=lcadinot.42.fr/UID=lcadinot"
 
 RUN cp /etc/nginx/ssl/inception.crt /usr/local/share/ca-certificates/inception.crt
@@ -29,7 +21,6 @@ RUN update-ca-certificates
 # Créer le répertoire pour les fichiers PID de NGINX
 RUN mkdir -p /var/run/nginx
 
-# Copier le fichier de configuration NGINX personnalisé
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 # Définir les permissions pour le répertoire web
