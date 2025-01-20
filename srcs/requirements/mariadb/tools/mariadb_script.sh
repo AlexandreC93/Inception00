@@ -3,6 +3,13 @@ echo "test";
 
 service mariadb start;
 
+echo "Waiting for MariaDB to be ready..."
+until mysqladmin ping -h localhost --silent; do
+  echo "MariaDB is initializing..."
+  sleep 2
+done
+echo "MariaDB is ready!"
+
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 
 mysql -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
