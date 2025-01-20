@@ -13,7 +13,7 @@ all: build up
 
 build:
 	@ mkdir -p $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress > /dev/null 2>&1
-	@$(CMD) build
+	@$(CMD) build -t
 
 up:
 	@$(CMD) up -d
