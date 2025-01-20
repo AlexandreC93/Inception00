@@ -16,8 +16,53 @@ help:
 	@echo "  make info             : Afficher les informations Docker"
 	@echo "  make mysql            : Ouvrir une session MySQL dans le conteneur MariaDB"
 
+info:
+	@echo "== Docker Network List =="
+	@docker network ls
+	@echo "\n== Docker Containers Status =="
+	@if $(CMD) ps | grep -q .; then \
+		$(CMD) ps; \
+	else \
+		echo "Aucun conteneur actif."; \
+	fi
+	@echo "\n== Docker Volumes List =="
+	@if docker volume ls | grep -q .; then \
+		docker volume ls; \
+	else \
+		echo "Aucun volume trouvé."; \
+	fi
+	@echo "\n== Inspecting Volume: mariadb =="
+	@if docker volume inspect srcs_mariadb >/dev/null 2>&1; then \
+		docker volume inspect srcs_mariadb; \
+	else \
+		echo "Le volume 'mariadb' n'existe pas."; \
+	fi
+	@echo "\n== Inspecting Volume: wordpress =="
+	@if docker volume inspect srcs_wordpress >/dev/null 2>&1; then \
+		docker volume inspect srcs_wordpress; \
+	else \
+		echo "Le volume 'wordpress' n'existe pas."; \
+	fi
+	@echo "\n== Docker Compose Logs =="
+	@if $(CMD) ps | grep -q .; then \
+		$(CMD) logs --tail=10; \
+	else \
+		echo "Aucun conteneur actif pour afficher les logs."; \
+	fi
+	@echo "\n== Docker Images List =="
+	@if docker images | grep -q .; then \
+		docker images; \
+	else \
+		echo "Aucune image Docker trouvée."; \
+	fi; \
 
-# Testeur
+inspect:
+	@if [ -z "$(NAME)" ]; then \
+		echo "Veuillez spécifier le nom du volume avec 'make inspect-volume NAME=volume_name'"; \
+	else \
+		docker volume inspect $(NAME); \
+	fi
+
 eval:
 	@echo "\033[1;34m/*   -'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-',-'   */"; \
 	echo "/*                                PRÉLIMINAIRES                              */"; \
@@ -365,5 +410,6 @@ eval:
 	fi; \
 	echo "\033[1;36mdocker exec -it mariadb mysql -u root -p\033[0m"; \
 	docker exec -it mariadb mysql -u root -p;
+
 
 
