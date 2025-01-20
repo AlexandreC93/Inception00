@@ -2,6 +2,8 @@
 
 service mariadb start;
 
+echo $SQL_ROOT_PASSWORD;
+
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
 #mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 
