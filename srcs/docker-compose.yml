@@ -9,7 +9,6 @@ services:
       - .env
     volumes: 
       - mariadb:/var/lib/mysql
-    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
     expose: 
       - "3306/tcp"
@@ -20,7 +19,6 @@ services:
       - inception
     depends_on: 
       - wordpress
-    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
     build:
       context: requirements/nginx
@@ -38,7 +36,6 @@ services:
       - inception
     depends_on: 
       - mariadb
-    # Redémarrer automatiquement le conteneur sauf s'il est arrêté manuellement
     restart: unless-stopped
     build:
       context: ./requirements/wordpress
@@ -49,7 +46,6 @@ services:
     expose: 
       - "9000"
 
-# Définition des volumes
 volumes:
   wordpress:
     # Utiliser le driver local pour le volume
@@ -70,7 +66,6 @@ volumes:
       o: 'bind'
       device: "/home/lcadinot/data/mariadb"
 
-# Définition du réseau Docker
 networks:
   inception:
     name: inception
