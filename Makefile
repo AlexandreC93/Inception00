@@ -372,7 +372,7 @@ eval:
 	fi; \
 	echo ""; \
 	echo "\033[1;36mdocker volume ls && docker volume inspect wordpress\033[0m"; \
-	volume_name="wordpress"; \
+	volume_name="srcs_wordpress"; \
 	volume_path="/home/lcadinot/data/wordpress"; \
 	volume_exists=$$(docker volume ls | grep -w $$volume_name); \
 	volume_inspect=$$(docker volume inspect $$volume_name | grep '"device":' | sed 's/^[ \t]*//'); \
@@ -422,7 +422,7 @@ eval:
 	fi; \
 	echo ""; \
 	echo "\033[1;36mdocker volume ls && docker volume inspect mariadb\033[0m"; \
-	volume_name="mariadb"; \
+	volume_name="srcs_mariadb"; \
 	volume_path="/home/lcadinot/data/mariadb"; \
 	volume_exists=$$(docker volume ls | grep -w $$volume_name); \
 	volume_inspect=$$(docker volume inspect $$volume_name | grep '"device":' | sed 's/^[ \t]*//'); \
