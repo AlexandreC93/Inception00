@@ -6,7 +6,7 @@ COMP_FILE = $(SRC_DIR)/docker-compose.yml
 CMD = $(DOCKER_COMPOSE) -f $(COMP_FILE)
 DATA_DIR = $(HOME)/data
 
-.PHONY: all build up down clean logs ps volumes inspect prune help eval net-ls info mysql
+.PHONY: all build up down clean logs ps volumes prune net-ls mysql
 
 
 all: build up
@@ -25,7 +25,6 @@ clean:
 	$(CMD) down -v --remove-orphans
 	sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
 
-
 logs:
 	$(CMD) logs -f
 
@@ -43,10 +42,10 @@ mysql:
 
 prune:
 
-		if [ -n "$$(docker ps -qa)" ]; then docker stop $$(docker ps -qa); fi; \
-		if [ -n "$$(docker ps -qa)" ]; then docker rm $$(docker ps -qa); fi; \
-		if [ -n "$$(docker images -qa)" ]; then docker rmi -f $$(docker images -qa); fi; \
-		if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi; \
-		if [ -n "$$(docker network ls -q)" ]; then docker network rm $$(docker network ls -q) 2>/dev/null || true; fi; \
-		if [ -d "$(DATA_DIR)" ]; then sudo rm -rf $(DATA_DIR); fi; \
-		docker system prune -a --volumes; \
+	if [ -n "$$(docker ps -qa)" ]; then docker stop $$(docker ps -qa); fi; \
+	if [ -n "$$(docker ps -qa)" ]; then docker rm $$(docker ps -qa); fi; \
+	if [ -n "$$(docker images -qa)" ]; then docker rmi -f $$(docker images -qa); fi; \
+	if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi; \
+	if [ -n "$$(docker network ls -q)" ]; then docker network rm $$(docker network ls -q) 2>/dev/null || true; fi; \
+	if [ -d "$(DATA_DIR)" ]; then sudo rm -rf $(DATA_DIR); fi; \
+	docker system prune -a --volumes; \
