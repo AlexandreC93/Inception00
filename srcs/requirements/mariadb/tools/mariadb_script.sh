@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "test"
+echo "test";
 
 service mariadb start;
 
