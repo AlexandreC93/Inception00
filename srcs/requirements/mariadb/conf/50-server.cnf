@@ -5,7 +5,7 @@
 [mysqld]
 
 # L'utilisateur sous lequel le serveur MariaDB s'exécutera
-user = leboss
+user = mysql
 
 port = 3306
 
